@@ -134,7 +134,7 @@
 								<td>Editoral</td>
 								<td>Lírico</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalLivro=true" ></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalLivro=true"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -158,7 +158,7 @@
 								<td>Masculino</td>
 								<td>Brasileira</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalAutor=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalAutor=true"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -178,7 +178,7 @@
 								<td>Editoral</td>
 								<td>82-9822879</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalEditora=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalEditora=true"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -196,7 +196,7 @@
 							<tr class="text-center">
 								<td>Lírico</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalGenero=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalGenero=true"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -262,9 +262,30 @@
 								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false">Editar</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para remover Autor -->
+		<div id="overlay" v-if="showRemoveModalAutor">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Remover Autor </h5>
+						<button type="button" class="close" @click="showRemoveModalAutor=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
+						<hr>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalAutor=false">Remover</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-success btn-lg" @click="showRemoveModalAutor=false">Voltar</button>
 					</div>
 				</div>
 			</div>
@@ -316,9 +337,30 @@
 								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalLivro=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalLivro=false">Editar</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para remover Livro -->
+		<div id="overlay" v-if="showRemoveModalLivro">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Remover Livro </h5>
+						<button type="button" class="close" @click="showRemoveModalLivro=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
+						<hr>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalLivro=false">Remover</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-success btn-lg" @click="showRemoveModalLivro=false">Voltar</button>
 					</div>
 				</div>
 			</div>
@@ -370,9 +412,30 @@
 								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalEditora=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalEditora=false">Editar</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para remover Editora -->
+		<div id="overlay" v-if="showRemoveModalEditora">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Remover Editora </h5>
+						<button type="button" class="close" @click="showRemoveModalEditora=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
+						<hr>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalEditora=false">Remover</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-success btn-lg" @click="showRemoveModalEditora=false">Voltar</button>
 					</div>
 				</div>
 			</div>
@@ -418,9 +481,30 @@
 								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalGenero=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalGenero=false">Editar</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para remover Genero -->
+		<div id="overlay" v-if="showRemoveModalGenero">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Remover Gênero Literário </h5>
+						<button type="button" class="close" @click="showRemoveModalGenero=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
+						<hr>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalGenero=false">Remover</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-success btn-lg" @click="showRemoveModalGenero=false">Voltar</button>
 					</div>
 				</div>
 			</div>
