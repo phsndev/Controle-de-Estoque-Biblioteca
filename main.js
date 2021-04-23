@@ -8,6 +8,10 @@ var app = new Vue({
 		tableLivro: false,
 		tableEditora: false,
 		tableGenero: false,
+		buttonAutor: false,
+		buttonLivro: false,
+		buttonEditora: false,
+		buttonGenero: false,
 	}
 });
 

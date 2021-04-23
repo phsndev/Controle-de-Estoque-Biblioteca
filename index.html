@@ -78,15 +78,30 @@
 				<div class="dropdown col-lg-6">
 					<button class="dropbtn">Listar</button>
 					<div class="dropdown-content">
-						<a href="#livros" @click=tableLivro=true,tableAutor=false,tableEditora=false,tableGenero=false>Livros</a>
-						<a href="#autores" @click=tableLivro=false,tableAutor=true,tableEditora=false,tableGenero=false>Autores</a>
-						<a href="#editoras" @click=tableLivro=false,tableAutor=false,tableEditora=true,tableGenero=false>Editoras</a>
-						<a href="#generos" @click=tableLivro=false,tableAutor=false,tableEditora=false,tableGenero=true>Gêneros Literários</a>
+						<a href="#livros" @click=tableLivro=true,tableAutor=false,tableEditora=false,tableGenero=false,buttonAutor=true,buttonLivro=false,buttonEditora=false,buttonGenero=false>Livros</a>
+						<a href="#autores" @click=tableLivro=false,tableAutor=true,tableEditora=false,tableGenero=false,buttonAutor=false,buttonLivro=true,buttonEditora=false,buttonGenero=false>Autores</a>
+						<a href="#editoras" @click=tableLivro=false,tableAutor=false,tableEditora=true,tableGenero=false,buttonAutor=false,buttonLivro=false,buttonEditora=true,buttonGenero=false>Editoras</a>
+						<a href="#generos" @click=tableLivro=false,tableAutor=false,tableEditora=false,tableGenero=true,buttonAutor=false,buttonLivro=false,buttonEditora=false,buttonGenero=true>Gêneros Literários</a>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<button class="btn btn-info float-right">
-						<i></i>&nbsp;&nbsp;Registrar novo
+				<div class="col-lg-6" v-if="buttonAutor">
+					<button type="button" class="btn btn-info float-right" @click=showAddModal=true>
+						<i></i>&nbsp;&nbsp;Registrar Autor
+					</button>
+				</div>
+				<div class="col-lg-6" v-if="buttonLivro">
+					<button class="btn btn-info float-right" @click=showAddModal=true>
+						<i></i>&nbsp;&nbsp;Registrar Livro
+					</button>
+				</div>
+				<div class="col-lg-6" v-if="buttonEditora">
+					<button class="btn btn-info float-right" @click=showAddModal=true>
+						<i></i>&nbsp;&nbsp;Registrar Editora
+					</button>
+				</div>
+				<div class="col-lg-6" v-if="buttonGenero">
+					<button class="btn btn-info float-right" @click=showAddModal=true>
+						<i></i>&nbsp;&nbsp;Registrar Genero
 					</button>
 				</div>
 			</div>
