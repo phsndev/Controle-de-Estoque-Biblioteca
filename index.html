@@ -29,6 +29,15 @@
   display: block;
 }
 
+#overlay{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.6);
+}
+
 .dropdown-content a:hover {background-color: #f1f1f1}
 
 .dropdown:hover .dropdown-content {
@@ -69,10 +78,10 @@
 				<div class="dropdown col-lg-6">
 					<button class="dropbtn">Listar</button>
 					<div class="dropdown-content">
-						<a href="#livros">Livros</a>
-						<a href="#autores">Autores</a>
-						<a href="#editoras">Editoras</a>
-						<a href="#generos">Gêneros Literários</a>
+						<a href="#livros" @click=tableLivro=true,tableAutor=false,tableEditora=false,tableGenero=false>Livros</a>
+						<a href="#autores" @click=tableLivro=false,tableAutor=true,tableEditora=false,tableGenero=false>Autores</a>
+						<a href="#editoras" @click=tableLivro=false,tableAutor=false,tableEditora=true,tableGenero=false>Editoras</a>
+						<a href="#generos" @click=tableLivro=false,tableAutor=false,tableEditora=false,tableGenero=true>Gêneros Literários</a>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -109,8 +118,8 @@
 								<td>José Freitas</td>
 								<td>Editoral</td>
 								<td>Lírico</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" ></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -134,7 +143,7 @@
 								<td>Masculino</td>
 								<td>Brasileira</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -154,7 +163,7 @@
 								<td>Editoral</td>
 								<td>82-9822879</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -172,13 +181,47 @@
 							<tr class="text-center">
 								<td>Lírico</td>
 								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+
+		<!-- Form para adicionar novo -->
+		<div id="overlay" v-if="showAddModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Adicionar novo Autor </h5>
+						<button type="button" class="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<form action="#" method="post">
+							<div class="form-group">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+							</div>
+							<div class="form-group">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento">
+							</div>
+							<div class="form-group">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo">
+							</div>
+							<div class="form-group">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg">Registrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
  	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
  	<script type="text/javascript" src="main.js"></script>

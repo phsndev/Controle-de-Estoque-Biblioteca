@@ -3,9 +3,23 @@ var app = new Vue({
 	data: {
 		errorMsg: false,
 		successMsg: false,
-		tableAutor: true,
-		tableLivro: true,
-		tableEditora: true,
-		tableGenero: true,
+		showAddModal: false,
+		tableAutor: false,
+		tableLivro: false,
+		tableEditora: false,
+		tableGenero: false,
 	}
 });
+
+const webpack = require('webpack');
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+      })
+    ]
+  }
+}
