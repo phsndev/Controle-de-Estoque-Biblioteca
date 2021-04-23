@@ -3,7 +3,10 @@ var app = new Vue({
 	data: {
 		errorMsg: false,
 		successMsg: false,
-		showAddModal: false,
+		showAddModalAutor: false,
+		showAddModalLivro: false,
+		showAddModalEditora: false,
+		showAddModalGenero: false,
 		tableAutor: false,
 		tableLivro: false,
 		tableEditora: false,
