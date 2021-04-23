@@ -133,7 +133,7 @@
 								<td>José Freitas</td>
 								<td>Editoral</td>
 								<td>Lírico</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools" ></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalLivro=true" ></i></a></td>
 								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
@@ -157,7 +157,7 @@
 								<td>1965</td>
 								<td>Masculino</td>
 								<td>Brasileira</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalAutor=true"></i></a></td>
 								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
@@ -177,7 +177,7 @@
 							<tr class="text-center">
 								<td>Editoral</td>
 								<td>82-9822879</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalEditora=true"></i></a></td>
 								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
@@ -195,7 +195,7 @@
 						<tbody>
 							<tr class="text-center">
 								<td>Lírico</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalGenero=true"></i></a></td>
 								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red"></i></a></td>
 							</tr>
 						</tbody>
@@ -211,6 +211,39 @@
 					<div class="modal-header">
 						<h5 class ="modal-title">Adicionar novo Autor </h5>
 						<button type="button" class="close" @click="showAddModalAutor=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<form action="#" method="post">
+							<div class="form-group">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+							</div>
+							<div class="form-group">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento">
+							</div>
+							<div class="form-group">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo">
+							</div>
+							<div class="form-group">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false">Registrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para editar Autor -->
+		<div id="overlay" v-if="showEditModalAutor">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Editar Autor </h5>
+						<button type="button" class="close" @click="showEditModalAutor=false">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -264,6 +297,33 @@
 			</div>
 		</div>
 
+		<!-- Form para editar Livro -->
+		<div id="overlay" v-if="showEditModalLivro">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Editar Livro </h5>
+						<button type="button" class="close" @click="showEditModalLivro=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<form action="#" method="post">
+							<div class="form-group">
+								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título">
+							</div>
+							<div class="form-group">
+								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalLivro=false">Registrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Form para adicionar nova Editora -->
 		<div id="overlay" v-if="showAddModalEditora">
 			<div class="modal-dialog">
@@ -291,13 +351,64 @@
 			</div>
 		</div>
 
-		<!-- Form para adicionar novo Autor -->
+		<!-- Form para editar Editora -->
+		<div id="overlay" v-if="showEditModalEditora">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Editar Editora </h5>
+						<button type="button" class="close" @click="showEditModalEditora=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<form action="#" method="post">
+							<div class="form-group">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+							</div>
+							<div class="form-group">
+								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalEditora=false">Registrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para adicionar novo Genero -->
 		<div id="overlay" v-if="showAddModalGenero">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class ="modal-title">Adicionar novo Gênero Literário </h5>
 						<button type="button" class="close" @click="showAddModalGenero=false">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-4">
+						<form action="#" method="post">
+							<div class="form-group">
+								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalGenero=false">Registrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form para editar Genero -->
+		<div id="overlay" v-if="showEditModalGenero">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class ="modal-title">Editar Gênero Literário </h5>
+						<button type="button" class="close" @click="showEditModalGenero=false">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
