@@ -127,14 +127,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="text-center">
-								<td>Livro 1</td>
-								<td>1998</td>
-								<td>José Freitas</td>
-								<td>Editoral</td>
-								<td>Lírico</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalLivro=true" ></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalLivro=true"></i></a></td>
+							<tr class="text-center" v-for="livro in livro">
+								<td>{{livro.titulo}}</td>
+								<td>{{livro.anoLancamento}}</td>
+								<td>{{livro.autorNome}}</td>
+								<td>{{livro.editoraNome}}</td>
+								<td>{{livro.generoLiterarioNome}}</td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalLivro=true; selectLivro(livro);" ></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalLivro=true; selectLivro(livro);"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -176,11 +176,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="text-center">
-								<td>Editoral</td>
-								<td>82-9822879</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalEditora=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalEditora=true"></i></a></td>
+							<tr class="text-center" v-for="editora in editora">
+								<td>{{editora.nome}}</td>
+								<td>{{editora.cnpj}}</td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalEditora=true; selectEditora(editora);"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalEditora=true; selectEditora(editora);"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -195,10 +195,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="text-center">
-								<td>Lírico</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalGenero=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalGenero=true"></i></a></td>
+							<tr class="text-center" v-for="genero in genero">
+								<td>{{genero.tipo}}</td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalGenero=true; selectGenero(genero);"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalGenero=true; selectGenero(genero);"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -231,7 +231,7 @@
 								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade" v-model="newAutor.nacionalidade">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false; addAutor()">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false; addAutor(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -264,7 +264,7 @@
 								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" v-model="atualAutor.nacionalidade">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false; updateAutor();">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false; updateAutor(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -285,7 +285,7 @@
 					<div class="modal-body p-4">
 						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
 						<hr>
-						<button class="btn btn-danger btn-lg" @click="showRemoveModalAutor=false;removeAutor();">Remover</button>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalAutor=false; removeAutor(); clearMsg();">Remover</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-lg" @click="showRemoveModalAutor=false">Voltar</button>
 					</div>
@@ -306,13 +306,34 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título">
+								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="newLivro.titulo">
 							</div>
 							<div class="form-group">
-								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento">
+								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="newLivro.anoLancamento">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalLivro=false">Registrar</button>
+								<label>Selecione um Autor</label>
+								<select class="form-control input-lg" v-model="newLivro.autor_idautor">
+									<option value="" selected disabled></option>
+									<option v-for="data in autorList" :value="data.idautor">{{ data.nome }}</option>  
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Selecione uma Editora</label>
+								<select class="form-control input-lg" v-model="newLivro.editora_ideditora">
+									<option value="" selected disabled></option>
+									<option v-for="data in editoraList" :value="data.ideditora">{{ data.nome }}</option>  
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Selecione um Gênero Literário</label>
+								<select class="form-control input-lg" v-model="newLivro.generoLiterario_idgeneroLiterario">
+									<option value="" selected disabled></option>
+									<option v-for="data in generoList" :value="data.idgeneroLiterario">{{ data.tipo }}</option>  
+								</select>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalLivro=false; addLivro(); clearMsg();" >Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -333,13 +354,35 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título">
+								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="atualLivro.titulo">
 							</div>
 							<div class="form-group">
-								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento">
+								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="atualLivro.anoLancamento">
+							</div>
+							
+							<div class="form-group">
+								<label>Selecione um Autor</label>
+								<select class="form-control input-lg" v-model="atualLivro.autor_idautor">
+									<option value="" ></option>
+									<option v-for="data in autorList" :value="data.idautor" :selected= "data.idautor == atualLivro.autor_idautor">{{ data.nome }}</option>  
+								</select>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalLivro=false">Editar</button>
+								<label>Selecione uma Editora</label>
+								<select class="form-control input-lg" v-model="atualLivro.editora_ideditora">
+									<option value=""></option>
+									<option v-for="data in editoraList" :value="data.ideditora" :selected= "data.idautor == atualLivro.editora_ideditora">{{ data.nome }}</option>  
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Selecione um Gênero Literário</label>
+								<select class="form-control input-lg" v-model="atualLivro.generoLiterario_idgeneroLiterario">
+									<option value=""></option>
+									<option v-for="data in generoList" :value="data.idgeneroLiterario" :selected= "data.idautor == atualLivro.generoLiterario_idgeneroLiterario">{{ data.tipo }}</option>  
+								</select>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalLivro=false; editLivro(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -360,7 +403,7 @@
 					<div class="modal-body p-4">
 						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
 						<hr>
-						<button class="btn btn-danger btn-lg" @click="showRemoveModalLivro=false">Remover</button>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalLivro=false; removeLivro(); clearMsg();">Remover</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-lg" @click="showRemoveModalLivro=false">Voltar</button>
 					</div>
@@ -381,13 +424,13 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newEditora.nome">
 							</div>
 							<div class="form-group">
-								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ">
+								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="newEditora.cnpj">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalEditora=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalEditora=false; addEditora(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -408,13 +451,13 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="atualEditora.nome">
 							</div>
 							<div class="form-group">
-								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ">
+								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="atualEditora.cnpj">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalEditora=false">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalEditora=false; editEditora(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -435,7 +478,7 @@
 					<div class="modal-body p-4">
 						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
 						<hr>
-						<button class="btn btn-danger btn-lg" @click="showRemoveModalEditora=false">Remover</button>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalEditora=false; removeEditora(); clearMsg();">Remover</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-lg" @click="showRemoveModalEditora=false">Voltar</button>
 					</div>
@@ -456,10 +499,10 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero">
+								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="newGenero.tipo">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalGenero=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalGenero=false; addGenero(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -480,10 +523,10 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero">
+								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="atualGenero.tipo">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalGenero=false">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalGenero=false; editGenero(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -504,7 +547,7 @@
 					<div class="modal-body p-4">
 						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
 						<hr>
-						<button class="btn btn-danger btn-lg" @click="showRemoveModalGenero=false">Remover</button>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalGenero=false; removeGenero(); clearMsg();">Remover</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-lg" @click="showRemoveModalGenero=false">Voltar</button>
 					</div>
