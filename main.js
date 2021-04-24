@@ -1,8 +1,8 @@
 var app = new Vue({
 	el: '#app',
 	data: {
-		errorMsg: false,
-		successMsg: false,
+		errorMsg: "",
+		successMsg: "",
 		showAddModalAutor: false,
 		showEditModalAutor: false,
 		showRemoveModalAutor: false,
@@ -23,6 +23,77 @@ var app = new Vue({
 		buttonLivro: false,
 		buttonEditora: false,
 		buttonGenero: false,
+		autor: [],
+		newAutor: {nome: "", anoNasc: "", sexo: "", nacionalidade: ""},
+		atualAutor: {},
+	},
+	mounted: function(){
+		this.getAllAutor();
+	},
+	methods:{
+		getAllAutor(){
+			axios.get("http://localhost/controle-de-estoque-biblioteca/process.php?action=readAutor").then(function(response){
+				if(response.data.error){
+					app.errorMsg = response.data.message;
+				}
+				else{
+					app.autor = response.data.autor;
+				}
+			});
+		},
+		addAutor(){
+			var formData = app.toFormData(app.newAutor);
+			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createAutor", formData).then(function(response){
+				app.newAutor = {nome: "", anoNasc: "", sexo: "", nacionalidade: ""};
+				if(response.data.error){
+					app.errorMsg = response.data.message;
+				}
+				else{
+					app.successMsg = response.data.message;
+					app.getAllAutor();
+				}
+			});
+		},
+
+		updateAutor(){
+			var formData = app.toFormData(app.atualAutor);
+			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateAutor", formData).then(function(response){
+				app.atualAutor = {};
+				if(response.data.error){
+					app.errorMsg = response.data.message;
+				}
+				else{
+					app.successMsg = response.data.message;
+					app.getAllAutor();
+				}
+			});
+		},
+
+		removeAutor(){
+			var formData = app.toFormData(app.atualAutor);
+			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=deleteAutor", formData).then(function(response){
+				app.atualAutor = {};
+				if(response.data.error){
+					app.errorMsg = response.data.message;
+				}
+				else{
+					app.successMsg = response.data.message;
+					app.getAllAutor();
+				}
+			});
+		},
+
+		toFormData(obj){
+			var fd = new FormData();
+			for(var i in obj){
+				fd.append(i,obj[i]);
+			}
+			return fd;
+		},
+
+		selectAutor(autor){
+			app.atualAutor = autor;
+		}
 	}
 });
 

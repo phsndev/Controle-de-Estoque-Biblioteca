@@ -79,19 +79,19 @@
 					<button class="dropbtn">Listar</button>
 					<div class="dropdown-content">
 						<a href="#livros" @click=tableLivro=true,tableAutor=false,tableEditora=false,tableGenero=false,buttonAutor=true,buttonLivro=false,buttonEditora=false,buttonGenero=false>Livros</a>
-						<a href="#autores" @click=tableLivro=false,tableAutor=true,tableEditora=false,tableGenero=false,buttonAutor=false,buttonLivro=true,buttonEditora=false,buttonGenero=false>Autores</a>
+						<a href="#autores" @click=tableLivro=false,tableAutor=true,tableEditora=false,tableGenero=false,buttonAutor=false,buttonLivro=true,buttonEditora=false,buttonGenero=false onclick="getAllAutor()">Autores</a>
 						<a href="#editoras" @click=tableLivro=false,tableAutor=false,tableEditora=true,tableGenero=false,buttonAutor=false,buttonLivro=false,buttonEditora=true,buttonGenero=false>Editoras</a>
 						<a href="#generos" @click=tableLivro=false,tableAutor=false,tableEditora=false,tableGenero=true,buttonAutor=false,buttonLivro=false,buttonEditora=false,buttonGenero=true>Gêneros Literários</a>
 					</div>
 				</div>
 				<div class="col-lg-6" v-if="buttonAutor">
-					<button type="button" class="btn btn-info float-right" @click=showAddModalAutor=true>
-						<i></i>&nbsp;&nbsp;Registrar Autor
+					<button type="button" class="btn btn-info float-right" @click=showAddModalLivro=true>
+						<i></i>&nbsp;&nbsp;Registrar Livro
 					</button>
 				</div>
 				<div class="col-lg-6" v-if="buttonLivro">
-					<button class="btn btn-info float-right" @click=showAddModalLivro=true>
-						<i></i>&nbsp;&nbsp;Registrar Livro
+					<button class="btn btn-info float-right" @click=showAddModalAutor=true>
+						<i></i>&nbsp;&nbsp;Registrar Autor
 					</button>
 				</div>
 				<div class="col-lg-6" v-if="buttonEditora">
@@ -107,10 +107,10 @@
 			</div>
 			<hr class="bg-info">
 			<div class="alert alert-danger" v-if="errorMsg">
-				Erro
+				{{ errorMsg }}
 			</div>
 			<div class="alert alert-success" v-if="successMsg">
-				Okay
+				{{ successMsg }}
 			</div>
 			<div class="row">
 				<div class="col-lg-12" v-if="tableLivro">
@@ -143,6 +143,7 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr class="text-center bg-info text-light">
+								<td>ID</td>
 								<td>Nome</td>
 								<td>Ano de Nascimento</td>
 								<td>Sexo</td>
@@ -152,13 +153,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="text-center">
-								<td>José Freitas</td>
-								<td>1965</td>
-								<td>Masculino</td>
-								<td>Brasileira</td>
-								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalAutor=true"></i></a></td>
-								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalAutor=true"></i></a></td>
+							<tr class="text-center" v-for="autor in autor">
+								<td>{{autor.idautor}}</td>
+								<td>{{autor.nome}}</td>
+								<td>{{autor.anoNasc}}</td>
+								<td>{{autor.sexo}}</td>
+								<td>{{autor.nacionalidade}}</td>
+								<td><a href="#" class="text-success"><i class="bi bi-tools" @click="showEditModalAutor=true; selectAutor(autor);"></i></a></td>
+								<td><a href="#" class="text-success"><i class="bi bi-trash-fill" style="color:red" @click="showRemoveModalAutor=true; selectAutor(autor);"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -217,19 +219,19 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newAutor.nome">
 							</div>
 							<div class="form-group">
-								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento" v-model="newAutor.anoNasc">
 							</div>
 							<div class="form-group">
-								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo" v-model="newAutor.sexo">
 							</div>
 							<div class="form-group">
-								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade" v-model="newAutor.nacionalidade">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false; addAutor()">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -250,19 +252,19 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" v-model="atualAutor.nome">
 							</div>
 							<div class="form-group">
-								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" v-model="atualAutor.anoNasc">
 							</div>
 							<div class="form-group">
-								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" v-model="atualAutor.sexo">
 							</div>
 							<div class="form-group">
-								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" v-model="atualAutor.nacionalidade">
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false; updateAutor();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -283,7 +285,7 @@
 					<div class="modal-body p-4">
 						<h4 class="text-danger">Tem certeza que deseja remover essa coluna?</h4>
 						<hr>
-						<button class="btn btn-danger btn-lg" @click="showRemoveModalAutor=false">Remover</button>
+						<button class="btn btn-danger btn-lg" @click="showRemoveModalAutor=false;removeAutor();">Remover</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-lg" @click="showRemoveModalAutor=false">Voltar</button>
 					</div>
@@ -511,6 +513,7 @@
 		</div>
 
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
  	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
  	<script type="text/javascript" src="main.js"></script>
 </body>
