@@ -129,93 +129,150 @@ var app = new Vue({
 
 
 		addAutor(){
-			var formData = app.toFormData(app.newAutor);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createAutor", formData).then(function(response){
-				app.newAutor = {nome: "", anoNasc: "", sexo: "", nacionalidade: ""};
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllAutor();
-					app.getAutorList();
-				}
-			});
+			if(this.newAutor.nome && this.newAutor.anoNasc && this.newAutor.sexo && this.newAutor.nacionalidade){
+				var formData = app.toFormData(app.newAutor);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createAutor", formData).then(function(response){
+					app.newAutor = {nome: "", anoNasc: "", sexo: "", nacionalidade: ""};
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllAutor();
+						app.getAutorList();
+					}
+				});
+			} else {
+
+			}
 		},
 
 		addEditora(){
-			var formData = app.toFormData(app.newEditora);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createEditora", formData).then(function(response){
-				app.newEditora = {nome: "", cnpj: ""};
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllEditora();
-					app.getEditoraList();
-				}
-			});
+			if(this.newEditora.nome && this.newEditora.cnpj){
+				var formData = app.toFormData(app.newEditora);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createEditora", formData).then(function(response){
+					app.newEditora = {nome: "", cnpj: ""};
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllEditora();
+						app.getEditoraList();
+					}
+				});
+			} else {
+
+			}
 		},
 
 		addGenero(){
-			var formData = app.toFormData(app.newGenero);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createGenero", formData).then(function(response){
-				app.newGenero = {tipo: ""};
-				console.log(response);
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllGenero();
-					app.getGeneroList();
-				}
-			});
+			if(this.newGenero.tipo){
+				var formData = app.toFormData(app.newGenero);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createGenero", formData).then(function(response){
+					app.newGenero = {tipo: ""};
+					console.log(response);
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllGenero();
+						app.getGeneroList();
+					}
+				});
+			} else {
+
+			}
 		},
 
 		addLivro(){
-			var formData = app.toFormData(app.newLivro);
-			console.log(app.newLivro);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createLivro", formData).then(function(response){
-				app.newLivro = {tipo: ""};
-				console.log(response);
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllLivro();
-				}
-			});
+			if(this.newLivro.titulo && this.newLivro.anoLancamento && this.newLivro.autor_idautor && this.newLivro.editora_ideditora && this.newLivro.generoLiterario_idgeneroLiterario){
+				var formData = app.toFormData(app.newLivro);
+				console.log(app.newLivro);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createLivro", formData).then(function(response){
+					app.newLivro = {titulo: "", anoLancamento: "", autor_idautor: "", editora_ideditora: "", generoLiterario_idgeneroLiterario: ""};
+					console.log(response);
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllLivro();
+					}
+				});
+			}
 		},
 
 		updateAutor(){
-			var formData = app.toFormData(app.atualAutor);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateAutor", formData).then(function(response){
-				app.atualAutor = {};
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllAutor();
-				}
-			});
+			if(this.atualAutor.nome && this.atualAutor.anoNasc && this.atualAutor.sexo && this.atualAutor.nacionalidade){
+				var formData = app.toFormData(app.atualAutor);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateAutor", formData).then(function(response){
+					app.atualAutor = {};
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllAutor();
+					}
+				});
+			}
+		},
+
+		updateEditora(){
+			if(this.atualEditora.nome && this.atualEditora.cnpj){
+				var formData = app.toFormData(app.atualEditora);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateEditora", formData).then(function(response){
+					app.atualEditora = {nome: "", cnpj: ""};
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllEditora();
+						app.getEditoraList();
+					}
+				});
+			} else {
+
+			}
+		},
+
+		addGenero(){
+			if(this.atualGenero.tipo){
+				var formData = app.toFormData(app.atualGenero);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=createGenero", formData).then(function(response){
+					app.atualGenero = {tipo: ""};
+					console.log(response);
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllGenero();
+						app.getGeneroList();
+					}
+				});
+			} else {
+
+			}
 		},
 
 		updateLivro(){
-			var formData = app.toFormData(app.atualLivro);
-			axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateLivro", formData).then(function(response){
-				app.atualLivro = {};
-				if(response.data.error){
-					app.errorMsg = response.data.message;
-				}
-				else{
-					app.successMsg = response.data.message;
-					app.getAllLivro();
-				}
-			});
+			if(this.atualLivro.titulo && this.atualLivro.anoLancamento && this.atualLivro.autor_idautor && this.atualLivro.editora_ideditora && this.atualLivro.generoLiterario_idgeneroLiterario){
+				var formData = app.toFormData(app.atualLivro);
+				axios.post("http://localhost/controle-de-estoque-biblioteca/process.php?action=updateLivro", formData).then(function(response){
+					app.atualLivro = {};
+					if(response.data.error){
+						app.errorMsg = response.data.message;
+					}
+					else{
+						app.successMsg = response.data.message;
+						app.getAllLivro();
+					}
+				});
+			}
 		},
 
 		removeAutor(){

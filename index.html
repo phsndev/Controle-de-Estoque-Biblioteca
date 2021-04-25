@@ -219,19 +219,19 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newAutor.nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newAutor.nome" required>
 							</div>
 							<div class="form-group">
-								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento" v-model="newAutor.anoNasc">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" placeholder="Nascimento" v-model="newAutor.anoNasc" required>
 							</div>
 							<div class="form-group">
-								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo" v-model="newAutor.sexo">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" placeholder="Sexo" v-model="newAutor.sexo" required>
 							</div>
 							<div class="form-group">
-								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade" v-model="newAutor.nacionalidade">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" placeholder="Nacionalidade" v-model="newAutor.nacionalidade" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalAutor=false; addAutor(); clearMsg();">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="addAutor(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -252,19 +252,19 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" v-model="atualAutor.nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" v-model="atualAutor.nome" required>
 							</div>
 							<div class="form-group">
-								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" v-model="atualAutor.anoNasc">
+								<input type="anoNasc" name="Nascimento" class="form-control form-control-lg" v-model="atualAutor.anoNasc" required>
 							</div>
 							<div class="form-group">
-								<input type="sexo" name="Sexo" class="form-control form-control-lg" v-model="atualAutor.sexo">
+								<input type="sexo" name="Sexo" class="form-control form-control-lg" v-model="atualAutor.sexo" required>
 							</div>
 							<div class="form-group">
-								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" v-model="atualAutor.nacionalidade">
+								<input type="nacionalidade" name="Nacionalidade" class="form-control form-control-lg" v-model="atualAutor.nacionalidade" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalAutor=false; updateAutor(); clearMsg();">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="updateAutor(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -306,34 +306,34 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="newLivro.titulo">
+								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="newLivro.titulo" required>
 							</div>
 							<div class="form-group">
-								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="newLivro.anoLancamento">
+								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="newLivro.anoLancamento" required>
 							</div>
 							<div class="form-group">
 								<label>Selecione um Autor</label>
-								<select class="form-control input-lg" v-model="newLivro.autor_idautor">
+								<select class="form-control input-lg" v-model="newLivro.autor_idautor" required>
 									<option value="" selected disabled></option>
 									<option v-for="data in autorList" :value="data.idautor">{{ data.nome }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Selecione uma Editora</label>
-								<select class="form-control input-lg" v-model="newLivro.editora_ideditora">
+								<select class="form-control input-lg" v-model="newLivro.editora_ideditora" required>
 									<option value="" selected disabled></option>
 									<option v-for="data in editoraList" :value="data.ideditora">{{ data.nome }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Selecione um Gênero Literário</label>
-								<select class="form-control input-lg" v-model="newLivro.generoLiterario_idgeneroLiterario">
+								<select class="form-control input-lg" v-model="newLivro.generoLiterario_idgeneroLiterario" required>
 									<option value="" selected disabled></option>
 									<option v-for="data in generoList" :value="data.idgeneroLiterario">{{ data.tipo }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalLivro=false; addLivro(); clearMsg();" >Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="addLivro(); clearMsg();" >Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -354,35 +354,35 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="atualLivro.titulo">
+								<input type="título" name="Título" class="form-control form-control-lg" placeholder="Título" v-model="atualLivro.titulo" required>
 							</div>
 							<div class="form-group">
-								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="atualLivro.anoLancamento">
+								<input type="anoLancamento" name="Lançamento" class="form-control form-control-lg" placeholder="Lançamento" v-model="atualLivro.anoLancamento" required >
 							</div>
 							
 							<div class="form-group">
 								<label>Selecione um Autor</label>
-								<select class="form-control input-lg" v-model="atualLivro.autor_idautor">
+								<select class="form-control input-lg" v-model="atualLivro.autor_idautor" required>
 									<option value="" ></option>
 									<option v-for="data in autorList" :value="data.idautor" :selected= "data.idautor == atualLivro.autor_idautor">{{ data.nome }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Selecione uma Editora</label>
-								<select class="form-control input-lg" v-model="atualLivro.editora_ideditora">
+								<select class="form-control input-lg" v-model="atualLivro.editora_ideditora" required>
 									<option value=""></option>
 									<option v-for="data in editoraList" :value="data.ideditora" :selected= "data.idautor == atualLivro.editora_ideditora">{{ data.nome }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Selecione um Gênero Literário</label>
-								<select class="form-control input-lg" v-model="atualLivro.generoLiterario_idgeneroLiterario">
+								<select class="form-control input-lg" v-model="atualLivro.generoLiterario_idgeneroLiterario" required>
 									<option value=""></option>
 									<option v-for="data in generoList" :value="data.idgeneroLiterario" :selected= "data.idautor == atualLivro.generoLiterario_idgeneroLiterario">{{ data.tipo }}</option>  
 								</select>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalLivro=false; editLivro(); clearMsg();">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="editLivro(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -424,13 +424,13 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newEditora.nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="newEditora.nome" required>
 							</div>
 							<div class="form-group">
-								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="newEditora.cnpj">
+								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="newEditora.cnpj" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalEditora=false; addEditora(); clearMsg();">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="addEditora(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -451,13 +451,13 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="atualEditora.nome">
+								<input type="nome" name="Nome" class="form-control form-control-lg" placeholder="Nome" v-model="atualEditora.nome" required>
 							</div>
 							<div class="form-group">
-								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="atualEditora.cnpj">
+								<input type="cnpj" name="CNPJ" class="form-control form-control-lg" placeholder="CNPJ" v-model="atualEditora.cnpj" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalEditora=false; editEditora(); clearMsg();">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="editEditora(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
@@ -499,10 +499,10 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="newGenero.tipo">
+								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="newGenero.tipo" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showAddModalGenero=false; addGenero(); clearMsg();">Registrar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="addGenero(); clearMsg();">Registrar</button>
 							</div>
 						</form>
 					</div>
@@ -523,10 +523,10 @@
 					<div class="modal-body p-4">
 						<form action="#" method="post">
 							<div class="form-group">
-								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="atualGenero.tipo">
+								<input type="tipo" name="Gênero" class="form-control form-control-lg" placeholder="Gênero" v-model="atualGenero.tipo" required>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-info btn-block btn-lg" @click="showEditModalGenero=false; editGenero(); clearMsg();">Editar</button>
+								<button class="btn btn-info btn-block btn-lg" @click="editGenero(); clearMsg();">Editar</button>
 							</div>
 						</form>
 					</div>
