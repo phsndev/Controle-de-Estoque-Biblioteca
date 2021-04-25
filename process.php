@@ -1,7 +1,6 @@
 <?php
+		// Estabelece conexao com o banco de dados e testa se foi valido
 		$conn = new mysqli("localhost", "root", "", "controle-biblioteca");
-
-
 
 		if($conn->connect_error){
 			die("Conexão falha".$conn->connect_error);
@@ -12,7 +11,7 @@
 		if(isset($_GET['action'])){
 			$action = $_GET['action'];
 		}
-
+		// query para selecionar todos os autores
 		if($action == 'readAutor'){
 			$sql = $conn->query("SELECT * FROM autor");
 			$autor = array();
@@ -21,7 +20,7 @@
 			}
 			$result['autor'] = $autor;
 		}
-
+		// query para selecionar todos as editoras
 		if($action == 'readEditora'){
 			$sql = $conn->query("SELECT * FROM editora");
 			$editora = array();
@@ -29,8 +28,8 @@
 				array_push($editora, $row);
 			}
 			$result['editora'] = $editora;
-		}
-
+		}	
+		// query para selecionar todos os generos literarios
 		if($action == 'readGenero'){
 			$sql = $conn->query("SELECT * FROM generoliterario");
 			$genero = array();
@@ -39,7 +38,7 @@
 			}
 			$result['genero'] = $genero;
 		}
-
+		// query para selecionar todos os livros
 		if($action == 'readLivro'){
 			$sql = $conn->query("SELECT idlivro, titulo, anoLancamento, editora.nome as editoraNome, autor.nome as autorNome, generoliterario.tipo as generoLiterarioNome FROM livro INNER JOIN editora ON livro.editora_ideditora = editora.ideditora INNER JOIN autor ON livro.autor_idautor = autor.idautor INNER JOIN generoliterario ON livro.generoLiterario_idgeneroLiterario = generoliterario.idgeneroLiterario;");
 			$livro = array();
@@ -48,7 +47,7 @@
 			}
 			$result['livro'] = $livro;
 		}
-
+		// query para selecionar todos os nomes e ids de autor
 		if($action == 'readAutorList'){
 			$sql = $conn->query("SELECT nome, idautor FROM autor");
 			$autorList = array();
@@ -57,7 +56,7 @@
 			}
 			$result['autorList'] = $autorList;
 		}
-
+		// query para selecionar todos os nomes e ids de editora
 		if($action == 'readEditoraList'){
 			$sql = $conn->query("SELECT nome, ideditora FROM editora");
 			$editoraList = array();
@@ -66,7 +65,7 @@
 			}
 			$result['editoraList'] = $editoraList;
 		}
-
+		// query para selecionar todos os tipos e ids de genero literario
 		if($action == 'readGeneroList'){
 			$sql = $conn->query("SELECT tipo, idgeneroLiterario FROM generoliterario");
 			$generoList = array();
@@ -75,7 +74,7 @@
 			}
 			$result['generoList'] = $generoList;
 		}
-
+		// query para criar um autor
 		if($action == 'createAutor'){
 			$nome = $_POST['nome'];
 			echo json_encode($nome);
@@ -91,7 +90,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para atualizar um autor
 		if($action == 'updateAutor'){
 			$id = $_POST['idautor'];
 			$nome = $_POST['nome'];
@@ -107,7 +106,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para remover um autor
 		if($action == 'deleteAutor'){
 			$id = $_POST['idautor'];
 			$sql = $conn->query("DELETE FROM autor WHERE idautor='$id'  ");
@@ -119,7 +118,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para criar uma editora
 		if($action == 'createEditora'){
 			$nome = $_POST['nome'];
 			echo json_encode($nome);
@@ -133,12 +132,12 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
-		if($action == 'updateAutor'){
+		// query para atualizar um autor
+		if($action == 'updateEditora'){
 			$id = $_POST['ideditora'];
 			$nome = $_POST['nome'];
 			$cnpj = $_POST['cnpj'];
-			$sql = $conn->query("UPDATE autor SET nome='$nome', cnpj='$cnpj' WHERE ideditora='$id'");
+			$sql = $conn->query("UPDATE editora SET nome='$nome', cnpj='$cnpj' WHERE ideditora='$id'");
 			if($sql){
 				$result['message'] = "Atualizado";
 			}
@@ -147,7 +146,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para remover uma editora
 		if($action == 'deleteEditora'){
 			$id = $_POST['ideditora'];
 			$sql = $conn->query("DELETE FROM editora WHERE ideditora='$id'");
@@ -159,7 +158,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para criar um genero literario
 		if($action == 'createGenero'){
 			$tipo = $_POST['tipo'];
 			$sql = $conn->query("INSERT INTO generoliterario (tipo) VALUES ('$tipo')");
@@ -171,7 +170,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para atualizar um genero literario
 		if($action == 'updateGenero'){
 			$id = $_POST['idgeneroLiterario'];
 			$tipo = $_POST['tipo'];
@@ -184,7 +183,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para deletar um genero literario
 		if($action == 'deleteGenero'){
 			$id = $_POST['idgeneroLiterario'];
 			$sql = $conn->query("DELETE FROM generoliterario WHERE idgeneroLiterario='$id'");
@@ -196,7 +195,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para criar um livro
 		if($action == 'createLivro'){
 			$titulo = $_POST['titulo'];
 			$anoLancamento = $_POST['anoLancamento'];
@@ -212,7 +211,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para atualizar um livro
 		if($action == 'updateLivro'){
 			$id = $_POST['idlivro'];
 			$titulo = $_POST['titulo'];
@@ -229,7 +228,7 @@
 				$result['message'] = "Não sucedido";
 			}
 		}
-
+		// query para remover um livro
 		if($action == 'deleteLivro'){
 			$id = $_POST['idlivro'];
 			$sql = $conn->query("DELETE FROM livro WHERE idlivro='$id'");
